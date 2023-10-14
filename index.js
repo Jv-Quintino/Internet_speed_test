@@ -16,18 +16,18 @@ let testCompleted = 0;
 let imageApi = "https://source.unsplash.com/random?topic=nature";
 
 // When image loads
-image.onload = async function(){
-  endTime = new Date().getTime();
+image.onload = async function () {
+    endTime = new Date().getTime();
 
-  // Get image Size
-  await fetch(imageApi).then((response) =>{
+    // Get image Size
+    await fetch(imageApi).then((response) => {
         imageSize = response.headers.get("content-length");
         calculateSpeed();
     });
 };
 
 // Function to calculate speed
-function calculateSpeed(){
+function calculateSpeed() {
     // Time taken in seconds 
     let timeDuration = (endTime - startTime) / 1000;
     // Total bits
@@ -45,17 +45,17 @@ function calculateSpeed(){
     testCompleted++;
 
     //if all tests completed (we get 5 image then calculate average)
-    if(testCompleted === numTests){
+    if (testCompleted === numTests) {
         let averageSpeedInBps = (totalBitSpeed / numTests).toFixed(2);
         let averageSpeedInKbps = (totalKbSpeed / numTests).toFixed(2);
         let averageSpeedInMbps = (totalMbSpeed / numTests).toFixed(2);
-    
+
         //Display average speeds
         bitSpeed.innerHTML += `${averageSpeedInBps}`;
         kbSpeed.innerHTML += `${averageSpeedInKbps}`;
         mbSpeed.innerHTML += `${averageSpeedInMbps}`;
         info.innerHTML = "Test Completed!";
-    }else{
+    } else {
         //Run the next test
         startTime = new Date().getTime();
         image.src = imageApi;
@@ -63,7 +63,7 @@ function calculateSpeed(){
 }
 
 //Initial function to start tests
-const init = async () =>{
+const init = async () => {
     info.innerHTML = "Testing...";
     startTime = new Date().getTime();
     image.src = imageApi;
@@ -71,7 +71,7 @@ const init = async () =>{
 
 //Run tests when window loads
 window.onload = () => {
-    for(let i = 0; i < numTests; i++){
+    for (let i = 0; i < numTests; i++) {
         init();
     }
 };
